@@ -1,7 +1,11 @@
 from rest_framework import viewsets, permissions
 
-from profiles.serializers import UserSerializer, ProfileSerializer
-from profiles.models import User, Profile
+from profiles.serializers import (
+    UserSerializer, ProfileSerializer, GuildSerializer
+)
+from profiles.models import (
+    User, Profile, Guild
+)
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -21,3 +25,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
+class GuildViewSet(viewsets.ModelViewSet):
+    queryset = Guild.objects.all()
+    serializer_class = GuildSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        return serializer.save(creator=self.request.user)

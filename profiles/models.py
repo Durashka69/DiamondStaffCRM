@@ -1,4 +1,3 @@
-from sre_constants import RANGE
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -9,9 +8,18 @@ User = get_user_model()
 
 
 class Guild(models.Model):
+    creator = models.ForeignKey(
+        User, 
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        verbose_name='Основатель гильдии'
+    )
     title = models.CharField(
         max_length=255, 
         verbose_name="Название"
+    )
+    description = models.TextField(
+        verbose_name='Описание гильдии'
     )
 
     def __str__(self):
