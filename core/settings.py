@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "profiles",
     'drf_yasg',
+    'gunicorn',
 ]
 
 SITE_ID = 1
